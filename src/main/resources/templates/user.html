@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIU Health Sheba</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+            background: url('background.webp') no-repeat center center fixed; /* Centered and fixed background */
+            background-size: cover; /* Ensure background image covers the screen */
+            background-attachment: fixed; /* Makes background stay fixed when scrolling */
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding:10px 30px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            text-align: center;
+        }
+
+        .intro-section {
+            padding: 2rem;
+        }
+
+        .intro-section h2 {
+            font-size: 2.5rem;
+            color: #2ecc71; /* Green color */
+            margin: 0 0 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .intro-section p {
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 25rem; /* Increased margin to move buttons 12 steps down */
+        }
+
+        .button-container .button {
+            width: 200px; /* Rectangle shape */
+            height: 60px; /* Adjusted height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem; /* Larger text */
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            color: white;
+        }
+
+        .button-container .button:hover {
+            transform: translateY(-5px); /* Slight hover effect */
+            opacity: 0.9;
+        }
+
+        /* Gradient Backgrounds */
+        .button-doctors {
+            background: linear-gradient(135deg, #ff8c00, #ff3b3f); /* Orange to Red gradient */
+        }
+
+        .button-blood {
+            background: linear-gradient(135deg, #2ecc71, #27ae60); /* Green gradient */
+        }
+
+        .button-medicine {
+            background: linear-gradient(135deg, #3498db, #2980b9); /* Blue gradient */
+        }
+
+        /* Text Slideshow Styles */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100px; /* Smaller height for the slider */
+            overflow: hidden;
+            margin-top: 10rem; /* Increased margin to move slider 7 steps down */
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            animation: slideTextAnimation 12s infinite;
+        }
+
+        .slide {
+            flex: 1 0 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #6c63ff;
+            color: white;
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: bold;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .slide:nth-child(2) {
+            background: #2ecc71;
+        }
+
+        .slide:nth-child(3) {
+            background: #ff9d9d;
+        }
+
+        @keyframes slideTextAnimation {
+            0%, 20% { transform: translateX(0); }
+            33%, 53% { transform: translateX(-100%); }
+            66%, 86% { transform: translateX(-200%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: auto; /* Ensure footer is at the bottom */
+        }
+        .doctor_a{
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Logo -->
+         <!-- <img src="" alt="Logo"> -->
+        <!-- Navigation Menu -->
+
+        <h1>DIU Health Sheba</h1>
+        
+        <nav>
+            <a href="/user-page">Home</a>
+            <a href="/about-us">About Us</a>
+            <a href="/Find-A-Doctor">Find A Doctor</a>
+            <a href="/our-Services">Our Services</a>
+            <a href="/blog-page">Blog</a>
+            <a href="/contact-us">Contact Us</a>
+            <div class="container">
+                <a href="/profile-page">[[${user.getFullname()}]]</a>
+                
+                <span sec:authorize="isAuthenticated">
+                <a th:href="@{/logout}">Logout</a>
+                </span>
+            </div>
+            
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction Section -->
+        <div class="intro-section">
+        </div>
+
+        <!-- Buttons Section (Moved Lower) -->
+        <div class="button-container">
+            <div class="button button-doctors"><a href="/doctors-page" class="doctor_a">Doctors List</a></div>
+            <div class="button button-blood"><a href="/bloodbank-page" class="doctor_a">Blood Bank</a></div>
+            <div class="button button-medicine"><a href="/medicines-page" class="doctor_a">Medicine</a></div>
+            <div class="button button-doctors"><a href="/gallery-page" class="doctor_a">Gallery</a></div>            
+        </div>
+        
+    </main>
+    
+
+    <!-- Slideshow Section (Near Footer) -->
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">Your Health, Our Priority</div>
+            <div class="slide">Trusted Medical Services Anytime</div>
+            <div class="slide">Caring for You and Your Family</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 DIU Health Sheba | All Rights Reserved
+    </footer>
+</body>
+</html>

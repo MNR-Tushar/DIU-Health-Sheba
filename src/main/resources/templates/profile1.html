@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding:10px 30px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+        }
+
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            flex: 1 1 300px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .profile-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #d32f2f;
+            margin-top: -60px;
+            background: white;
+        }
+
+        .profile-card h2 {
+            margin: 15px 0 5px;
+            color: #d32f2f;
+        }
+
+        .profile-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .profile-card .edit-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #d32f2f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .profile-card .edit-btn:hover {
+            background: #b71c1c;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            flex: 2 1 600px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .stats-section h3 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        .stats-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1 1 150px;
+            background: #f4f4f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-card h4 {
+            margin: 10px 0 5px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Recent Activities */
+        .activities-section {
+            flex: 1 1 300px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .activities-section h3 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+        }
+
+        .activity {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .activity:last-child {
+            border-bottom: none;
+        }
+
+        .activity span {
+            display: block;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: auto;
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .button-container .button {
+            width: 200px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            color: white;
+        }
+
+        .button-container .button:hover {
+            transform: translateY(-5px);
+            opacity: 0.9;
+        }
+
+        /* Gradient Backgrounds */
+        .button-doctors {
+            background: linear-gradient(135deg, #ff8c00, #ff3b3f);
+        }
+
+        .button-blood {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .button-medicine {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        /* Text Slideshow Styles */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            animation: slideTextAnimation 12s infinite;
+        }
+
+        .slide {
+            flex: 1 0 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #6c63ff;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .slide:nth-child(2) {
+            background: #2ecc71;
+        }
+
+        .slide:nth-child(3) {
+            background: #ff9d9d;
+        }
+        
+
+        @keyframes slideTextAnimation {
+            0%, 20% { transform: translateX(0); }
+            33%, 53% { transform: translateX(-100%); }
+            66%, 86% { transform: translateX(-200%); }
+            100% { transform: translateX(0); }
+        }
+        .doctor_a{
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DIU Health Sheba</h1>
+        <nav>
+            <a href="/user-page">Home</a>
+            <a href="/about-us">About Us</a>
+            <a href="/Find-A-Doctor">Find A Doctor</a>
+            <a href="/our-Services">Our Services</a>
+            <a href="/blog-page">Blog</a>
+            <a href="/contact-us">Contact Us</a> 
+        </nav>
+    </header>
+
+        <center><div class="button button-blood"><h1>Profile Dashboard</h1></div></center>
+    <div class="dashboard-container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <img src="profile.jpg" alt="User Profile Picture">
+            <h2>[[${user.getFullname()}]]</h2>
+            <p><strong>Email: ****@gmail.com</strong></p>
+            <p><strong>Phone: +880**********</strong> </p>
+            <p><strong>Address:</strong> Home no, City, State</p>
+            <div>
+                <span sec:authorize="isAuthenticated">
+                    <div class="button button-blood"><a th:href="@{/logout}"><h3>Logout</h3></a></div>
+                    
+                </span>
+            </div>
+            <a href="/edit-profile"><button class="edit-btn">Edit Profile</button></a>
+            
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h3>My Stats</h3>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h4>3</h4>
+                    <p>Blood Donations</p>
+                </div>
+                <div class="stat-card">
+                    <h4>5</h4>
+                    <p>Appointments</p>
+                </div>
+                <div class="stat-card">
+                    <h4>2</h4>
+                    <p>Medicine Orders</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities Section -->
+        <div class="activities-section">
+            <h3>Recent Activities</h3>
+            <div class="activity">
+                Donated blood on 12th December 2024
+                <span>Time: 10:00 AM</span>
+            </div>
+            <div class="activity">
+                Booked an appointment with Dr. Md. Fazlay Rabbi Rakib
+                <span>Time: 9:00 AM, 11th December</span>
+            </div>
+            <div class="activity">
+                Ordered medicines for fever and headache
+                <span>Time: 6:00 PM, 10th December</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <div class="button button-doctors"><a href="/doctors-page" class="doctor_a">Doctors List</a></div>
+        <div class="button button-blood"><a href="/bloodbank-page" class="doctor_a">Blood Bank</a></div>
+        <div class="button button-medicine"><a href="/medicines-page" class="doctor_a">Medicine</a></div>
+        <div class="button button-doctors"><a href="/gallery-page" class="doctor_a">Gallery</a></div>            
+    </div>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">Your Health, Our Priority</div>
+            <div class="slide">Trusted Medical Services Anytime</div>
+            <div class="slide">Caring for You and Your Family</div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 DIU Health Sheba. All Rights Reserved.
+    </footer>
+</body>
+</html>
